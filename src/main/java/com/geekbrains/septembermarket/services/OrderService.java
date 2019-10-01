@@ -24,6 +24,10 @@ public class OrderService {
         this.cart = cart;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
     public void createOrder(User user) {
         Order order = new Order(user);
         cart.getItems().values().stream().forEach(i -> order.addItem(i));

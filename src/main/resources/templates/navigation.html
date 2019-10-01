@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li>
-                    <img src="images/autmun-logo.jpg" height="40px" width="30px"/>
+                    <img th:src="@{/images/autmun-logo.jpg}" height="40px" width="30px"/>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Home' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/}">Home</a>

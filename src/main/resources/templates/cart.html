@@ -36,7 +36,7 @@
         </tbody>
     </table>
     <a th:if="${items.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/orders/create}" class="btn btn-warning">Оформить заказ</a>
-    <span th:if="${items.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа авторизуйтесь, либо сделайте быстрый заказ</span>
+    <span th:if="${items.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа авторизуйтесь, либо сделайте быстрый заказ</span><br>
     <a th:if="${items.size() > 0}" sec:authorize="isAnonymous()" th:href="@{/orders/fastcreate}" class="btn btn-warning">Быстрый заказ</a>
 </div>
 

@@ -51,14 +51,16 @@ public class OrderController {
 
     @GetMapping("/fastcreate")
     public String fastCreateOrder(Model model) {
-        String[] loginPass = userService.fastCreateUser();
+        if (!orderService.getCart().getItems().isEmpty() && SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+            String[] loginPass = userService.fastCreateUser();
 
-        User user = userService.findByUsername(loginPass[0]);
-        orderService.createOrder(user);
+            User user = userService.findByUsername(loginPass[0]);
+            orderService.createOrder(user);
 
-        model.addAttribute("login", loginPass[0]);
-        model.addAttribute("pass", loginPass[1]);
-        return "fast-create";
+            model.addAttribute("login", loginPass[0]);
+            model.addAttribute("pass", loginPass[1]);
+            return "fast-create";
+        } else return "redirect:/shop";
     }
 
 
