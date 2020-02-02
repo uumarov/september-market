@@ -2,9 +2,12 @@ package com.geekbrains.septembermarket.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Order {
+    public enum Status {
+        CREATED, PAID, SENT, RECEIVED, CANCELED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,10 +35,37 @@ public class Order {
     @Column(name = "price")
     private BigDecimal price;
 
-    public Order(User user) {
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column(name = "payment_id")
+    private String paymentId;
+
+    @Column(name = "approval_url")
+    private String approvalUrl;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    public Order(User user, String phone, String address) {
         this.user = user;
+        this.phone = phone;
+        this.address = address;
         this.items = new ArrayList<>();
         this.price = new BigDecimal(0);
+        this.status = Status.CREATED;
     }
 
     public void addItem(OrderItem item) {

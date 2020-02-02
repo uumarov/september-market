@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -21,6 +22,13 @@ public class Product {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> images;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Product(Long id, String title, BigDecimal price) {
         this.id = id;

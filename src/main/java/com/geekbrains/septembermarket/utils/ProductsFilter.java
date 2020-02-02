@@ -5,6 +5,7 @@ import com.geekbrains.septembermarket.repositories.specifications.ProductSpecifi
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class ProductsFilter {
@@ -28,13 +29,18 @@ public class ProductsFilter {
             filtersString.append("&word=" + request.getParameter("word"));
         }
 
+        if (request.getParameter("cat") != null && !request.getParameter("cat").isEmpty()) {
+            specification = specification.and(ProductSpecifications.categoryEquals(new BigDecimal(request.getParameter("cat"))));
+            filtersString.append("&cat=" + request.getParameter("cat"));
+        }
+
         if (request.getParameter("min") != null && !request.getParameter("min").isEmpty()) {
-            specification = specification.and(ProductSpecifications.priceGreaterThanOrEq(Double.parseDouble(request.getParameter("min"))));
+            specification = specification.and(ProductSpecifications.priceGreaterThanOrEq(new BigDecimal(request.getParameter("min"))));
             filtersString.append("&min=" + request.getParameter("min"));
         }
 
         if (request.getParameter("max") != null && !request.getParameter("max").isEmpty()) {
-            specification = specification.and(ProductSpecifications.priceLesserThanOrEq(Double.parseDouble(request.getParameter("max"))));
+            specification = specification.and(ProductSpecifications.priceLesserThanOrEq(new BigDecimal(request.getParameter("max"))));
             filtersString.append("&max=" + request.getParameter("max"));
         }
     }

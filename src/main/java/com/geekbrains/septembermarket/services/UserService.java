@@ -1,14 +1,11 @@
 package com.geekbrains.septembermarket.services;
 
 import com.geekbrains.septembermarket.entities.User;
+import com.geekbrains.septembermarket.utils.SystemUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.HashMap;
-
 public interface UserService extends UserDetailsService {
-    User findByUsername(String username);
-
-    void createUser(User user);
-
-    String[] fastCreateUser();
+    User findByPhone(String phone);
+    boolean isUserExist(String phone);
+    User save(SystemUser systemUser);
 }

@@ -5,7 +5,10 @@ import com.geekbrains.septembermarket.entities.User;
 import com.geekbrains.septembermarket.repositories.OrderRepository;
 import com.geekbrains.septembermarket.utils.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -14,24 +17,36 @@ public class OrderService {
     private Cart cart;
 
     @Autowired
-    public void setOrderRepository(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
-
-    @Autowired
     public OrderService(OrderRepository orderRepository, Cart cart) {
         this.orderRepository = orderRepository;
         this.cart = cart;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void createOrder(User user) {
-        Order order = new Order(user);
+    public Order createOrder(User user, String phone, String address) {
+        Order order = new Order(user, phone, address);
         cart.getItems().values().stream().forEach(i -> order.addItem(i));
         cart.clear();
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
+
+    public Order findOneById(Long id) {
+        return orderRepository.getOne(id);
+    }
+
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    public List<Order> findAllByUser(User user){
+        return orderRepository.findAllByUser(user);
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    public Order findOneByPaymentId(String paymentId) {
+        return orderRepository.findOrderByPaymentId(paymentId);
+   }
+
 }
