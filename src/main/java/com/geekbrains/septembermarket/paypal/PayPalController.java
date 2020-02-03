@@ -18,8 +18,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/paypal")
 public class PayPalController {
-    private String clientId = "AZfimWdZvqNxH4md3uNhOQ_zdKued_j-TaqMGovwIYhIOcvhaQcnf8zuhfRhUo5npuDbbjZgIVVIpqQQ";
-    private String clientSecret = "EKnN5UgNCQTBesYfVp2EiUzkSvhgMfxLHyXwishPbw_xOc8s7R1EbBILeGsOjacA_jhy3cDcK3We3RTG";
+    private String clientId = "";
+    private String clientSecret = "";
     private String mode = "sandbox";
 
     private APIContext apiContext = new APIContext(clientId, clientSecret, mode);
